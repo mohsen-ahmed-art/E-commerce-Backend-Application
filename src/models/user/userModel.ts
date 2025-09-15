@@ -127,7 +127,7 @@ export const userSchema: Schema<IUser> = new Schema<IUser>(
   }
 );
 
-userSchema.index({ email: 1 });
+
 
 userSchema.pre<IUser>("save", function (next) {
   if (!this.isModified("password")) return next();

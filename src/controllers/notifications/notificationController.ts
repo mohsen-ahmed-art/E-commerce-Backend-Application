@@ -192,20 +192,31 @@ export const markGroupAsRead = catchAsync(
     if (!groupOfNotificationIds || groupOfNotificationIds.length === 0) {
       return next(new AppError("No notification IDs provided", 400));
     }
-    const updatedNotifications = await Notification.updateMany(
-      {
-        _id: { $in: groupOfNotificationIds },
-        user: req.user._id,
-      },
-      {
-        $set: {
-          read: true,
-          readAt: new Date(),
-        },
-      },
-      { new: true }
-    );
-
+    // const updatedNotifications = await Notification.updateMany(
+    //   {
+    //     _id: { $in: groupOfNotificationIds },
+    //     user: req.user._id,
+    //   },
+    //   {
+    //     $set: {
+    //       read: true,
+    //       readAt: new Date(),
+    //     },
+    //   },
+    //   { returnDocument: 'after'}
+    // );
+const updatedNotifications = await Notification.updateMany(
+  {
+    _id: { $in: groupOfNotificationIds },
+    user: req.user._id,
+  },
+  {
+    $set: {
+      read: true,
+      readAt: new Date(),
+    },
+  }
+);
     if (updatedNotifications.modifiedCount === 0) {
       return next(
         new AppError(
