@@ -16,7 +16,7 @@ import {
   getSingleOrderCreatedOnShop,
 } from "../../controllers/shop/shopsManagementController";
 const router = Router();
-
+// plasa
 router.use(protect);
 router.use(restrictTo("admin"));
 
